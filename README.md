@@ -13,3 +13,4 @@ can enroll for the courses [here](https://www.rsquaredacademy.com/).
 |Data Wrangling with R - Part 3|[Playlist](https://www.youtube.com/watch?v=xg5L2cxNV4o&list=PLDfCKV3ey8-ePKsS11y5uAXpnydpzOD2n)|[Link](https://slides.rsquaredacademy.com/data-wrangling/dplyr/dplyr-part-3.html#/section)|
 |Introduction to tibbles|[Playlist](https://www.youtube.com/watch?v=yUu8yK_NEZs&list=PLDfCKV3ey8-frtlRpGGqA8-2f086SyR7x)|[Link](https://slides.rsquaredacademy.com/data-wrangling/tibbles/tibbles.html#/section)|
 |Readable Code with Pipes|[Playlist](https://www.youtube.com/watch?v=8uWzrQDtaHk&list=PLDfCKV3ey8-cZgy2Qu7FxuA3Pzdv6-35o)|[Link](https://slides.rsquaredacademy.com/data-wrangling/pipes/pipes.html#/section)|
+|Web Scraping in R|[Playlist](https://www.youtube.com/watch?v=l37n_HDD1qs)|[Link](https://slides.rsquaredacademy.com/web-scraping/web-scraping.html)|
