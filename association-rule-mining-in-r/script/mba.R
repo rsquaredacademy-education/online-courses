@@ -111,15 +111,13 @@ inspect(rules_pruned)
 
 ## ----what influenced purchase of sugar-----------------------------------
 sugar_rules <- apriori(basket_data, parameter = list(supp = 0.009, conf = 0.8), 
-  appearance = list(default = "lhs", rhs = "SUGAR"), 
-  control = list(verbose = F)) 
+  appearance = list(default = "lhs", rhs = "SUGAR")) 
 rules_sugar <- sort(sugar_rules, by = "confidence", decreasing = TRUE)
 inspect(rules_sugar)
 
 ## ----what purchases did sugar influence----------------------------------
 sugar_rules <- apriori(basket_data, parameter = list(supp = 0.009, conf = 0.8), 
-  appearance = list(default = "rhs", lhs = "SUGAR"), 
-  control = list(verbose = F)) 
+  appearance = list(default = "rhs", lhs = "SUGAR")) 
 rules_sugar <- sort(sugar_rules, by = "confidence", decreasing = TRUE)
 inspect(rules_sugar)
 
