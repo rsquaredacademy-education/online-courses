@@ -1,4 +1,6 @@
 ## ----libs----------------------------------------------------------------
+# install.packages("devtools")
+install_github("rsquaredacademy/mbar")
 library(readxl)
 library(readr)
 library(mbar)
