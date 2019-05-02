@@ -71,6 +71,12 @@ basket_data <- read.transactions("transaction_data.csv", format = "basket",
   sep = ",")
 basket_data
 
+## ----format = single-----------------------------------------------------
+get_data <- read.transactions("retail.csv", 
+  format = "single",
+  sep = ",",
+  cols = c("InvoiceNo", "item"))
+
 ## ----summary-------------------------------------------------------------
 summary(basket_data)
 
