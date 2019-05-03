@@ -95,19 +95,10 @@ basket_rules <- sort(rules, by = 'confidence', decreasing = TRUE)
 inspect(basket_rules[1:10])
 
 ## ----redundant rules-----------------------------------------------------
-rules_redundant <-
-  basket_rules %>%
-  is.subset(rules) %>%
-  colSums() %>%
-  is_greater_than(1) %>%
-  which()
+inspect(rules[is.redundant(rules)])
 
-## ----print redundant rules-----------------------------------------------
-rules_redundant
-
-## ----remove redundant rules----------------------------------------------
-rules_pruned <- basket_rules[-rules_redundant]
-inspect(rules_pruned)
+## ----non redundant rules-------------------------------------------------
+inspect(rules[!is.redundant(rules)])
 
 ## ----what influenced purchase of sugar-----------------------------------
 sugar_rules <- apriori(basket_data, parameter = list(supp = 0.009, conf = 0.8), 
@@ -121,8 +112,19 @@ sugar_rules <- apriori(basket_data, parameter = list(supp = 0.009, conf = 0.8),
 rules_sugar <- sort(sugar_rules, by = "confidence", decreasing = TRUE)
 inspect(rules_sugar)
 
-## ----top rules-----------------------------------------------------------
-top_rules <- basket_rules[1:10]
+## ----top rules by support------------------------------------------------
+supp_rules <- sort(rules, by = 'support', decreasing = TRUE)
+top_rules <- supp_rules[1:10]
+inspect(top_rules)
+
+## ----top rules by confidence---------------------------------------------
+supp_rules <- sort(rules, by = 'confidence', decreasing = TRUE)
+top_rules <- supp_rules[1:10]
+inspect(top_rules)
+
+## ----top rules by lift---------------------------------------------------
+supp_rules <- sort(rules, by = 'lift', decreasing = TRUE)
+top_rules <- supp_rules[1:10]
 inspect(top_rules)
 
 ## ----plot rules----------------------------------------------------------
