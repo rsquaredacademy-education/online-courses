@@ -60,6 +60,10 @@ grep(x = top_downloads, pattern = "^r", value = TRUE, ignore.case = TRUE)
 ## ----anchor $------------------------------------------------------------
 grep(x = top_downloads, pattern = "r$", value = TRUE)
 
+## ----meta characters-----------------------------------------------------
+grep(x = r_packages, pattern = ".", value = TRUE)[1:60]
+grep(x = r_packages, pattern = "\\.", value = TRUE)[1:50]
+
 ## ----quantifier dot------------------------------------------------------
 data_pkgs <- grep(x = r_packages, pattern = "data", value = TRUE)
 grep(x = data_pkgs, pattern = "data.r", value = TRUE, ignore.case = TRUE)
