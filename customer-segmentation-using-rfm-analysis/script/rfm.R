@@ -1,19 +1,14 @@
 ## ---- libraries----------------------------------------------------------
 library(rfm)
-library(knitr)
-library(kableExtra)
 library(magrittr)
 library(dplyr)
-library(ggplot2)
-library(DT)
-library(grDevices)
-library(RColorBrewer)
+library(lubridate)
 
 ## ----transaction data----------------------------------------------------
 rfm_data_orders
 
 ## ----rfm table-----------------------------------------------------------
-analysis_date <- lubridate::as_date("2006-12-31", tz = "UTC")
+analysis_date <- as_date("2006-12-31", tz = "UTC")
 rfm_result    <- rfm_table_order(rfm_data_orders, customer_id, order_date, revenue, analysis_date)
 rfm_result 
 
