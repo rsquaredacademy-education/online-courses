@@ -16,7 +16,7 @@ can enroll for the courses [here](https://www.rsquaredacademy.com/).
 |Web Scraping in R|[Playlist](https://www.youtube.com/watch?v=l37n_HDD1qs)|[Link](https://slides.rsquaredacademy.com/web-scraping/web-scraping.html)|[Link](https://blog.rsquaredacademy.com/web-scraping/)|
 |Association Rule Mining in R|[Playlist]()|[Link](https://slides.rsquaredacademy.com/mba/mba.html)|[Link](https://blog.rsquaredacademy.com/market-basket-analysis-in-r/)|
 |Regular Expressions in R|[Playlist]()|[Link](https://slides.rsquaredacademy.com/regex/regex.html)|[Link](https://blog.rsquaredacademy.com/regular-expression-in-r/)|
-|Customer Segmentation using RFM Analysis|[Playlist](https://youtu.be/275X7yaSsoQ)|[Link](https://slides.rsquaredacademy.com/rfm/rfm.html#/section)|[Link](https://rsquared-academy.thinkific.com/courses/customer-segmentation-using-rfm-analysis)|
+|Customer Segmentation using RFM Analysis|[Playlist](https://youtu.be/275X7yaSsoQ)|[Link](https://slides.rsquaredacademy.com/rfm/rfm.html#/section)|[Link]()|[Link](https://rsquared-academy.thinkific.com/courses/customer-segmentation-using-rfm-analysis)|
 
 
 
