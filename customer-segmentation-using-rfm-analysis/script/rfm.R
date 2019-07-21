@@ -8,7 +8,7 @@ library(lubridate)
 rfm_data_orders
 
 ## ----rfm table-----------------------------------------------------------
-analysis_date <- as_date("2006-12-31", tz = "UTC")
+analysis_date <- lubridate::as_date("2006-12-31", tz = "UTC")
 rfm_result    <- rfm_table_order(rfm_data_orders, customer_id, order_date, revenue, analysis_date)
 rfm_result 
 
@@ -31,9 +31,9 @@ segments
 
 ## ----tabulate segments---------------------------------------------------
 segments %>%
-  count(segment) %>%
-  arrange(desc(n)) %>%
-  rename(Segment = segment, Count = n)
+  dplyr::count(segment) %>%
+  dplyr::arrange(dplyr::desc(n)) %>%
+  dplyr::rename(Segment = segment, Count = n)
 
 ## ----average recency-----------------------------------------------------
 rfm_plot_median_recency(segments)
@@ -65,3 +65,5 @@ rfm_fm_plot(rfm_result)
 ## ----recency vs frequency------------------------------------------------ 
 rfm_rf_plot(rfm_result)
 
+## ----launch shiny web app------------------------------------------------
+rfm_launch_app()
