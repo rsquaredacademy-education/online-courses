@@ -1,0 +1,22 @@
+---
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(DBI)
+con = DBI::dbConnect(RSQLite::SQLite(), 
+                     dbname = "mydatabase.db")
+```
+
+```{sql, connection=con}
+ SELECT "device",
+       "referrer",
+       "purchase"
+FROM   trade
+WHERE  "purchase" == "true"  
+```
+
