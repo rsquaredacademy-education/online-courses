@@ -1,4 +1,6 @@
 ## ----libraries-----------------------------------------------------------
+# install.packages(c("DBI", "dbplyr", "dplyr", "dbplot", "ggplot2", "modeldb",
+# "tidypredict", "config"))
 library(DBI)
 library(dbplyr)
 library(dplyr)
@@ -21,13 +23,13 @@ dbListTables(con)
 dbListFields(con, "ecom")
 
 ## ----query entire table--------------------------------------------------
-dbReadTable(con, 'COMPANY')
+dbReadTable(con, "ecom")
 
 ## ----query few rows------------------------------------------------------
 dbGetQuery(con, "select * from ecom limit 10")
 
 ## ----query data in batches-----------------------------------------------
-query <- dbSendQuery(con, 'select * from ecom')
+query  <- dbSendQuery(con, 'select * from ecom')
 result <- dbFetch(query, n = 15)
 result
 
@@ -98,10 +100,6 @@ DBI::dbSendStatement(con,
   "INSERT into trial (x, y) VALUES (25, 'm'), (54, 'l'), (16, 'y')"
 )
 
-## ----append table--------------------------------------------------------
-trial_new <- data.frame(x = 30, y = 'k')
-DBI::sqlAppendTable(con, "trial", trial_new)
-
 ## ----remove table--------------------------------------------------------
 DBI::dbRemoveTable(con, "trial")
 
@@ -111,7 +109,12 @@ DBI::dbDataType(RSQLite::SQLite(), 1:5)
 DBI::dbDataType(RSQLite::SQLite(), 1.5)
 
 ## ----generate sql query--------------------------------------------------
+## ----create table--------------------------------------------------------
 DBI::sqlCreateTable(con, "new", c(x = "integer", y = "text"))
+
+## ----append table--------------------------------------------------------
+trial_new <- data.frame(x = 30, y = 'k')
+DBI::sqlAppendTable(con, "trial", trial_new)
 
 ## ----reference data------------------------------------------------------
 ecom2 <- tbl(con, "ecom")
@@ -137,10 +140,16 @@ tos_query <-
 show_query(tos_query)
 
 ## ----collect data--------------------------------------------------------
-collect(tos_query)
+result <- 
+  ecom2 %>%
+  select(referrer, device) 
 
-## ----explain-------------------------------------------------------------
-explain(tos_query)
+result
+nrow(result)
+
+result %>% 
+  collect() %>% 
+  nrow()
 
 ## ----mysql simulate------------------------------------------------------
 ecom2 %>% 
@@ -150,7 +159,7 @@ ecom2 %>%
 
 ## ----bar plot------------------------------------------------------------
 ecom2 %>% 
-  dbplot_bar(device) + xlab("Device") + ylab("Count") + ggtitle("Device Distribution")
+  dbplot::dbplot_bar(device) + xlab("Device") + ylab("Count") + ggtitle("Device Distribution")
 
 ## ----line plot-----------------------------------------------------------
 ecom2 %>% 
@@ -164,7 +173,7 @@ ecom2 %>%
 ## ----multiple regression-------------------------------------------------
 ecom2 %>% 
   select(duration, n_visit, n_pages) %>%
-  modeldb::linear_regression_db(duration, sample_size = 1000)
+  modeldb::linear_regression_db(duration)
 
 ## ----categorical variables-----------------------------------------------
 ecom2 %>% 
@@ -176,63 +185,57 @@ ecom2 %>%
 ecom2 %>% 
   select(duration, n_visit, n_pages, device) %>%
   add_dummy_variables(device, values = c("laptop", "mobile", "tablet")) %>%
-  modeldb::linear_regression_db(duration, sample_size = 1000)
+  modeldb::linear_regression_db(duration, auto_count = TRUE)
 
 ## ----linear model--------------------------------------------------------
 model <- lm(duration ~ device + referrer + n_visit + n_pages, data = ecom2)
 model
-
-## ----compute fitted values inside database-------------------------------
-tidypredict_fit(model)
-
-## ----sql translation of above step---------------------------------------
-tidypredict_sql(model, con)
 
 ## ----add fitted values in a new column-----------------------------------
 ecom2 %>% 
   tidypredict_to_column(model) %>% 
   select(duration, fit)
 
+## ----tidy eval formula-------------------------------
+tidypredict_fit(model)
+
 ## ----sql translation of above step---------------------------------------
-ecom2 %>% 
-  tidypredict_to_column(model) %>% 
-  select(duration, fit) %>% 
-  remote_query()
+tidypredict_sql(model, con)
 
 ## ----disconnect----------------------------------------------------------
 DBI::dbDisconnect(con)
 
 ## ----use rstudioapi------------------------------------------------------
-dbConnect(drv      = RMySQL::MySQL(), 
-          username = rstudioapi::askForPassword("Database Username"),
-          password = rstudioapi::askForPassword("Database Password"),
-          host     ="mysql-ecom.cowqoftkc0gy.us-east-2.rds.amazonaws.com", 
-          port     = 3306, 
-          dbname   = "mysql_test")
+db_con <- dbConnect(drv      = RMySQL::MySQL(), 
+                    username = rstudioapi::askForPassword("Database Username"),
+                    password = rstudioapi::askForPassword("Database Password"),
+                    host     = "mysql-ecom.cowqoftkc0gy.us-east-2.rds.amazonaws.com", 
+                    port     = 3306, 
+                    dbname   = "mysql_test")
 
 ## ----use .Renviron-------------------------------------------------------
-dbConnect(drv      = RMySQL::MySQL(), 
-          username = Sys.getenv("db_uid"), 
-          password = Sys.getenv("db_pwd"), 
-          host     ="mysql-ecom.cowqoftkc0gy.us-east-2.rds.amazonaws.com", 
-          port     = 3306, 
-          dbname   = "mysql_test")
+db_con <- dbConnect(drv      = RMySQL::MySQL(), 
+                    username = Sys.getenv("db_uid"), 
+                    password = Sys.getenv("db_pwd"), 
+                    host     = "mysql-ecom.cowqoftkc0gy.us-east-2.rds.amazonaws.com", 
+                    port     = 3306, 
+                    dbname   = "mysql_test")
 
 ## ----use options---------------------------------------------------------
 source("options.R")
-dbConnect(drv      = RMySQL::MySQL(), 
-          username = getOption("database_userid"), 
-          password = getOption("database_password"), 
-          host     ="mysql-ecom.cowqoftkc0gy.us-east-2.rds.amazonaws.com", 
-          port     = 3306, 
-          dbname   = "mysql_test")
+db_con <- dbConnect(drv      = RMySQL::MySQL(), 
+                    username = getOption("db_userid"), 
+                    password = getOption("db_password"), 
+                    host     = "mysql-ecom.cowqoftkc0gy.us-east-2.rds.amazonaws.com", 
+                    port     = 3306, 
+                    dbname   = "mysql_test")
 
 ## ----use config----------------------------------------------------------
-dw <- config::get("mysql-dev")
+md <- config::get("mysql-dev")
 
-dbConnect(drv      = RMySQL::MySQL(), 
-          username = dw$username,
-          password = dw$password,
-          host     = dw$host, 
-          port     = dw$port, 
-          dbname   = dw$dbname)
+db_con <- dbConnect(drv      = RMySQL::MySQL(), 
+                    username = md$username,
+                    password = md$password,
+                    host     = md$host, 
+                    port     = md$port, 
+                    dbname   = md$dbname)
