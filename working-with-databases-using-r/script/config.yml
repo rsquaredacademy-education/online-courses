@@ -1,0 +1,8 @@
+default:
+  mysql-dev:
+    host: 'mysql-ecom.cowqoftkc0gy.us-east-2.rds.amazonaws.com'
+    username: 'mysql_squared'
+    password: 'e2z3pPTY8B'  
+    port: 3306
+    dbname: 'mysql_test'
+    
