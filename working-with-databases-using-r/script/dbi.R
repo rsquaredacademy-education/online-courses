@@ -55,16 +55,16 @@ DBI::dbColumnInfo(query)
 DBI::dbClearResult(query)
 
 ## ----check if table exists-----------------------------------------------
-DBI::dbExistsTable(con, "trial")
+DBI::dbExistsTable(con, "trial_db")
 
 ## ----create table--------------------------------------------------------
 # sample data
-x     <- 1:10
-y     <- letters[1:10]
-trial <- tibble::tibble(x, y)
+x          <- 1:10
+y          <- letters[1:10]
+trial_data <- tibble::tibble(x, y)
 
 # write table to database
-DBI::dbWriteTable(con, "trial", trial)
+DBI::dbWriteTable(con, "trial_db", trial_data)
 
 ## ----list tables---------------------------------------------------------
 DBI::dbListTables(con)
@@ -74,34 +74,34 @@ DBI::dbGetQuery(con, "select * from trial limit 5")
 
 ## ----overwrite table-----------------------------------------------------
 # sample data
-x      <- sample(100, 10)
-y      <- letters[11:20]
-trial2 <- tibble::tibble(x, y)
+x           <- sample(100, 10)
+y           <- letters[11:20]
+trial2_data <- tibble::tibble(x, y)
 
 # overwrite table trial
-DBI::dbWriteTable(con, "trial", trial2, overwrite = TRUE)
+DBI::dbWriteTable(con, "trial_db", trial2_data, overwrite = TRUE)
 
 ## ----append data---------------------------------------------------------
 # sample data
-x      <- sample(100, 10)
-y      <- letters[5:14]
-trial3 <- tibble::tibble(x, y)
+x           <- sample(100, 10)
+y           <- letters[5:14]
+trial3_data <- tibble::tibble(x, y)
 
 # append data
-DBI::dbWriteTable(con, "trial", trial3, append = TRUE)
+DBI::dbWriteTable(con, "trial_db", trial3_data, append = TRUE)
 
 ## ----insert rows---------------------------------------------------------
 DBI::dbExecute(con,
-  "INSERT into trial (x, y) VALUES (32, 'c'), (45, 'k'), (61, 'h')"
+  "INSERT into trial_db (x, y) VALUES (32, 'c'), (45, 'k'), (61, 'h')"
 )
 
 ## ----insert rows---------------------------------------------------------
 DBI::dbSendStatement(con,
-  "INSERT into trial (x, y) VALUES (25, 'm'), (54, 'l'), (16, 'y')"
+  "INSERT into trial_db (x, y) VALUES (25, 'm'), (54, 'l'), (16, 'y')"
 )
 
 ## ----remove table--------------------------------------------------------
-DBI::dbRemoveTable(con, "trial")
+DBI::dbRemoveTable(con, "trial_db")
 
 ## ----data types----------------------------------------------------------
 DBI::dbDataType(RSQLite::SQLite(), "a")
@@ -114,7 +114,7 @@ DBI::sqlCreateTable(con, "new", c(x = "integer", y = "text"))
 
 ## ----append table--------------------------------------------------------
 trial_new <- data.frame(x = 30, y = 'k')
-DBI::sqlAppendTable(con, "trial", trial_new)
+DBI::sqlAppendTable(con, "trial_db", trial_new)
 
 ## ----reference data------------------------------------------------------
 ecom2 <- dplyr::tbl(con, "ecom")
