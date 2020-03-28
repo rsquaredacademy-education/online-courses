@@ -1,0 +1,11 @@
+# specify correct format 
+as.Date("05.07.19",       format = "%d.%m.%y")
+as.Date("5-July, 2019",   format = "%d-%B, %Y")
+as.Date("July 5th, 2019", format = "%B %dth, %Y")
+as.Date("July 05, 2019",  format = "%B %d, %Y")
+as.Date("2019-July-05",   format = "%Y-%B-%d")
+as.Date("05/07/2019",     format = "%d/%m/%Y")
+as.Date("07/05/2019",     format = "%m/%d/%Y")
+as.Date("7/5/2019",       format = "%m/%d/%Y")
+as.Date("07/5/19",        format = "%m/%d/%y")
+as.Date("2019-07-05")
