@@ -1,0 +1,6 @@
+1. https://lubridate.tidyverse.org/
+2. https://r4ds.had.co.nz/dates-and-times.html
+3. https://en.wikipedia.org/wiki/Daylight_saving_time
+4. https://en.wikipedia.org/wiki/Time_zone
+5. https://www.worldtimebuddy.com/
+6. https://en.wikipedia.org/wiki/POSIX
