@@ -19,6 +19,7 @@ can enroll for the courses [here](https://www.rsquaredacademy.com/).
 |Customer Segmentation using RFM Analysis|[Playlist](https://youtu.be/275X7yaSsoQ)|[Link](https://slides.rsquaredacademy.com/rfm/rfm.html#/section)|[Link](https://blog.rsquaredacademy.com/customer-segmentation-using-rfm-analysis/)|[Link](https://rsquared-academy.thinkific.com/courses/customer-segmentation-using-rfm-analysis)| [Link](https://rstudio.cloud/project/416146)|
 |Working with Databases using R|[Playlist](https://youtu.be/bPlGPmjPFeU)|[Link](https://bit.ly/2YV1TQU)|[Link](https://blog.rsquaredacademy.com/working-with-databases-using-r/)|[Link](https://rsquared-academy.thinkific.com/courses/working-with-databases-using-r)|[Link](https://rstudio.cloud/project/430439)|
 |Command Line Basics for R Users|[Playlist](https://www.youtube.com/playlist?list=PLDfCKV3ey8-cJpfx1fakjr039hK1vqtUP)|[Link](https://slides.rsquaredacademy.com/github/shell.pdf)|[Link](https://blog.rsquaredacademy.com/command-line-basics-for-r-users/)|[Link](https://rsquared-academy.thinkific.com/courses/command-line-basics-for-r-users)|[Link](https://rstudio.cloud/project/518720)|
+|Handling Date & Time in R|[Playlist](https://www.youtube.com/playlist?list=PLDfCKV3ey8-d6pEkC7z7jeqci1rsDqQPm)|[Link](https://www.youtube.com/playlist?list=PLDfCKV3ey8-d6pEkC7z7jeqci1rsDqQPm)|[Link](https://blog.rsquaredacademy.com/handling-date-and-time-in-r/)|[Link](https://rsquared-academy.thinkific.com/courses/handling-date-and-time-in-r)|[Link](https://rstudio.cloud/project/1072419)|
 
 
 
