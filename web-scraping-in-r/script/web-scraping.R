@@ -87,8 +87,11 @@ imdb %>%
   str_extract(pattern = "^\\$.*") %>%
   na.omit() %>%
   as.character() %>%
-  append(values = NA, after = 30) %>%
+  append(values = NA, after = 18) %>%
+  append(values = NA, after = 29) %>%
+  append(values = NA, after = 31) %>%
   append(values = NA, after = 46) %>%
+  append(values = NA, after = 49) %>%
   str_sub(start = 2, end = nchar(.) - 1) %>%
   as.numeric() -> movie_revenue
 
