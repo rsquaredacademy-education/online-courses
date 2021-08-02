@@ -48,7 +48,7 @@ ggplot(data = data) +
   xlab("Device") + ylab("Channel")
 
 
-## ----base Rpie chart-----------------------------------
+## ----base R pie chart-----------------------------------
 data %>% 
   pull(device) %>% 
   table() %>% 
