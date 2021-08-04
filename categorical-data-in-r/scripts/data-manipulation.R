@@ -23,128 +23,151 @@ fct_count(channel, prop = TRUE)
 
 
 ## ----check if levels are valid-------------------------
-table(fct_match(channel, "Social"))
+channel %>%
+  fct_match("Social") %>%
+  table()
 
 
 ## ----combine paid & organic search---------------------
-fct_count(
-  fct_collapse(
-    channel,
-    Search = c("Paid Search", "Organic Search")
-  )
-)
+channel %>% 
+  fct_collapse(Search = c("Paid Search", "Organic Search")) %>% 
+  fct_count()
 
 
 ## ----use fct_recode instead of fct_collapse------------
-fct_count(
+channel %>% 
   fct_recode(
-    channel,
     Search = "Paid Search",
     Search = "Organic Search"
-  )
-)
+  ) %>% 
+  fct_count()
 
 
 ## ----retain channels that drive a minimun traffic of 5000
-fct_count(fct_lump_min(channel, 5000))
+channel %>% 
+  fct_lump_min(min = 5000) %>% 
+  fct_count()
 
 
 ## ----retain top 3 channels-----------------------------
-fct_count(fct_lump_n(channel, 3))
+channel %>% 
+  fct_lump_n(n = 3) %>% 
+  fct_count()
 
 
 ## ----retain channels that drive atleast 2% traffic-----
-fct_count(fct_lump_prop(channel, 0.02))
+channel %>% 
+  fct_lump_prop(prop = 0.02) %>% 
+  fct_count()
 
 
 ## ----retain specific channels--------------------------
-fct_count(
-  fct_other(
-    channel, 
-    keep = c("Organic Search", "Direct", "Referral"))
-)
+# channels to be retained 
+retain <- c("Organic Search", "Direct", "Referral")
+
+channel %>% 
+  fct_other(keep = retain) %>% #<<
+  fct_count()
 
 
 ## ----drop specific channels----------------------------
-fct_count(
-  fct_other(
-    channel, 
-    drop = c("Display", "Paid Search")
-  )
-)
+# channels to be dropped
+dropped <- c("Display", "Paid Search")
+
+channel %>% 
+  fct_other(drop = dropped) %>% 
+  fct_count()
 
 
 ## ----compare functions---------------------------------
 # collapse
-fct_count(
-  fct_collapse(
-  channel,
-  Other = c("(Other)", "Affiliates", "Display", "Paid Search", "Social")
-  )
-)
+channel %>% 
+  fct_collapse(Other = c("(Other)",     
+                         "Affiliates",  
+                         "Display",      
+                         "Paid Search", 
+                         "Social")) %>% 
+  fct_count()
 
 # recode
-fct_count(
-  fct_recode(
-  channel,
-  Other = "(Other)", 
-  Other = "Affiliates", 
-  Other = "Display", 
-  Other = "Paid Search", 
-  Other = "Social"
-  )
-)
+channel %>% 
+  fct_recode(Other = "(Other)",     
+             Other = "Affiliates",  
+             Other = "Display",     
+             Other = "Paid Search", 
+             Other = "Social") %>%  
+  fct_count()
 
 
 ## ----anonymize data------------------------------------
-fct_count(fct_anon(channel, prefix = "ch_"))
+channel %>% 
+  fct_anon(prefix = "ch_") %>% 
+  fct_count()
 
 
 ## ----add new level-------------------------------------
-levels(fct_expand(channel, "Blog"))
+channel %>% 
+  fct_expand("Blog") %>% #<<
+  levels()
 
 
 ## ----drop unused levels--------------------------------
-levels(fct_drop(fct_expand(channel, "Blog")))
+channel %>% 
+  fct_expand("Blog") %>% 
+  fct_drop() %>% #<<
+  levels()
 
 
 ## ----make missing values explicit----------------------
-fct_count(fct_explicit_na(data$gender))
+data %>% 
+  use_series(gender) %>% 
+  fct_explicit_na() %>%  #<<
+  fct_count()
 
 
 ## ----make Organic Search the first level---------------
 levels(channel)
-levels(fct_relevel(channel, "Organic Search"))
+
+channel %>% 
+  fct_relevel("Organic Search") %>% #<<
+  levels()
 
 
 ## ----make Referral the third level---------------------
 levels(channel)
-levels(fct_relevel(channel, "Referral", after = 2))
+
+channel %>% 
+  fct_relevel("Referral", after = 2) %>% #<<
+  levels()
 
 
 ## ----make Display the last level-----------------------
 levels(channel)
-levels(fct_relevel(channel, "Display", after = Inf))
+
+channel %>% 
+  fct_relevel("Display", after = Inf) %>% #<<
+  levels()
 
 
 ## ---- reorder levels-----------------------------------
-# order levels by frequency
-levels(channel)
-levels(fct_infreq(channel))
 
+# order levels by frequency
+channel %>% 
+  fct_infreq() %>% #<<
+  levels()
 
 # order levels in order of appearance
-levels(channel)
-levels(fct_inorder(channel))
-
+channel %>% 
+  fct_inorder() %>% #<<
+  levels()
 
 # reverse order of levels
-levels(channel)
-levels(fct_rev(channel))
-
+channel %>% 
+  fct_rev() %>% #<<
+  levels()
 
 # randomly shuffle order of levels
-levels(channel)
-levels(fct_shuffle(channel))
-
+channel %>% 
+  fct_shuffle() %>% #<<
+  levels()
 
